@@ -7,9 +7,13 @@ const Stack = createNativeStackNavigator();
 
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(["AsyncStorage has been extracted from"]);
 
 // Import screens
 import ShoppingLists from './components/ShoppingLists';
+import Welcome from './components/Welcome';
+
 
 const App = () => {
     const firebaseConfig = {
@@ -30,16 +34,17 @@ const App = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="ShoppingLists"
+    <Stack.Navigator
+      initialRouteName="Welcome"
+    >
+      <Stack.Screen name="Welcome" component={Welcome} />
+      <Stack.Screen
+        name="ShoppingLists"
       >
-       <Stack.Screen
-         name="ShoppingLists"
-       >
-         {props => <ShoppingLists db={db} {...props} />}
-       </Stack.Screen>
-      </Stack.Navigator>
-    </NavigationContainer>
+        {props => <ShoppingLists db={db} {...props} />}
+      </Stack.Screen>
+    </Stack.Navigator>
+  </NavigationContainer>
   );
 }
 
