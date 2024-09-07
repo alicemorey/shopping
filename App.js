@@ -1,14 +1,15 @@
 // import react Navigation
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import ShoppingLists from './components/ShoppingLists';
-
 
 // Create the navigator
 const Stack = createNativeStackNavigator();
 
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+
+// Import screens
+import ShoppingLists from './components/ShoppingLists';
 
 const App = () => {
     const firebaseConfig = {
@@ -19,7 +20,7 @@ const App = () => {
       messagingSenderId: "404440184743",
       appId: "1:404440184743:web:006787dfc6892a9912e882"
     };
-  };
+  
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
@@ -32,12 +33,14 @@ const App = () => {
       <Stack.Navigator
         initialRouteName="ShoppingLists"
       >
-        <Stack.Screen
-          name="ShoppingLists"
-          component={ShoppingLists}
-        />
+       <Stack.Screen
+         name="ShoppingLists"
+       >
+         {props => <ShoppingLists db={db} {...props} />}
+       </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );
+}
 
 export default App;
